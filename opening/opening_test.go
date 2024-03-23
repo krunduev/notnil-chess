@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/notnil/chess"
-	"github.com/notnil/chess/opening"
+	chess "github.com/krunduev/notnil-chess"
+	"github.com/krunduev/notnil-chess/opening"
 )
 
 func ExampleFind() {

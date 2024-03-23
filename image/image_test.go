@@ -10,8 +10,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/notnil/chess"
-	"github.com/notnil/chess/image"
+	chess "github.com/krunduev/notnil-chess"
+	"github.com/krunduev/notnil-chess/image"
 )
 
 const expectedMD5 = "08aaa6fcfde3bb900fc54bdfef3d5c81"
@@ -20,12 +20,13 @@ const expectedMD5Black = "badac5ca5cfbdea9b98a1f9988ba54bc"
 func TestSVG(t *testing.T) {
 	// create buffer of actual svg
 	buf := bytes.NewBuffer([]byte{})
+
 	fenStr := "rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq - 0 1"
 	pos := &chess.Position{}
 	if err := pos.UnmarshalText([]byte(fenStr)); err != nil {
 		t.Error(err)
 	}
-	mark := image.MarkSquares(color.RGBA{255, 255, 0, 1}, chess.D2, chess.D4)
+	mark := image.MarkSquares(color.RGBA{255, 255, 0, 1}, chess.Square(chess.D2), chess.Square(chess.D4))
 	if err := image.SVG(buf, pos.Board(), mark); err != nil {
 		t.Error(err)
 	}

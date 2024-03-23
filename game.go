@@ -168,6 +168,18 @@ func (g *Game) Move(m *Move) error {
 	return nil
 }
 
+func (g *Game) UnMove() error {
+	if len(g.moves) == 0 {
+		return fmt.Errorf("chess: no moves to unmove")
+	}
+	// remove last g.moves
+	g.moves = g.moves[:len(g.moves)-1]
+	g.positions = g.positions[:len(g.positions)-1]
+	g.pos = g.positions[len(g.positions)-1]
+	g.updatePosition()
+	return nil
+}
+
 // MoveStr decodes the given string in game's notation
 // and calls the Move function.  An error is returned if
 // the move can't be decoded or the move is invalid.
@@ -378,7 +390,11 @@ func (g *Game) updatePosition() {
 		if g.pos.Turn() == White {
 			g.outcome = BlackWon
 		}
+	} else if method == NoMethod {
+		g.method = NoMethod
+		g.outcome = NoOutcome
 	}
+
 	if g.outcome != NoOutcome {
 		return
 	}
