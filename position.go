@@ -52,6 +52,8 @@ type Position struct {
 	moveCount       int
 	inCheck         bool
 	validMoves      []*Move
+	outcome         Outcome
+	method          Method
 }
 
 const (
@@ -62,6 +64,8 @@ const (
 // rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
 func StartingPosition() *Position {
 	pos, _ := decodeFEN(startFEN)
+	pos.outcome = NoOutcome
+	pos.method = NoMethod
 	return pos
 }
 

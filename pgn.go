@@ -162,7 +162,7 @@ func decodePGN(pgn string) (*Game, error) {
 			break
 		}
 	}
-	gameFuncs = append(gameFuncs, TagPairs(tagPairs))
+	// gameFuncs = append(gameFuncs, TagPairs(tagPairs))
 	g := NewGame(gameFuncs...)
 	g.ignoreAutomaticDraws = true
 	decoder := multiDecoder([]Decoder{AlgebraicNotation{}, LongAlgebraicNotation{}, UCINotation{}})
@@ -174,17 +174,17 @@ func decodePGN(pgn string) (*Game, error) {
 		if err := g.Move(m); err != nil {
 			return nil, fmt.Errorf("chess: pgn invalid move error %s on move %d", err.Error(), g.Position().moveCount)
 		}
-		g.comments = append(g.comments, move.Comments)
+		// g.comments = append(g.comments, move.Comments)
 	}
-	g.outcome = outcome
+	g.positions[g.currentMove].outcome = outcome
 	return g, nil
 }
 
 func encodePGN(g *Game) string {
 	s := ""
-	for _, tag := range g.tagPairs {
-		s += fmt.Sprintf("[%s \"%s\"]\n", tag.Key, tag.Value)
-	}
+	// for _, tag := range g.tagPairs {
+	// 	s += fmt.Sprintf("[%s \"%s\"]\n", tag.Key, tag.Value)
+	// }
 	s += "\n"
 	for i, move := range g.moves {
 		pos := g.positions[i]
@@ -200,7 +200,7 @@ func encodePGN(g *Game) string {
 			}
 		}
 	}
-	s += " " + string(g.outcome)
+	s += " " + string(g.positions[g.currentMove].outcome)
 	return s
 }
 

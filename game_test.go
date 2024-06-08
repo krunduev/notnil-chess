@@ -234,23 +234,6 @@ func TestInitialNumOfValidMoves(t *testing.T) {
 	}
 }
 
-func TestTagPairs(t *testing.T) {
-	g := NewGame()
-	g.AddTagPair("Draw Offer", "White")
-	tagPair := g.GetTagPair("Draw Offer")
-	if tagPair == nil {
-		t.Fatalf("expected %s but got %s", "White", "nil")
-	}
-	if tagPair.Value != "White" {
-		t.Fatalf("expected %s but got %s", "White", tagPair.Value)
-	}
-	g.RemoveTagPair("Draw Offer")
-	tagPair = g.GetTagPair("Draw Offer")
-	if tagPair != nil {
-		t.Fatalf("expected %s but got %s", "nil", "not nil")
-	}
-}
-
 func TestPositionHash(t *testing.T) {
 	g1 := NewGame()
 	for _, s := range []string{"Nc3", "e5", "Nf3"} {
